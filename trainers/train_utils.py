@@ -9,7 +9,7 @@ from typing import List, Optional, Union
 
 import tqdm
 import numpy as np
-import sklearn
+from sklearn.metrics import f1_score,precision_score,recall_score,accuracy_score
 import torch
 from transformers import (
     WEIGHTS_NAME,
@@ -30,10 +30,10 @@ def evaluate_standard(preds, labels, scoring_method):
     # and F1 score for the predictions and gold labels.
     # Please also make your sci-kit learn scores are computed
     # using `scoring_method` for the `average` argument.
-    f1=sklearn.metrics.f1_score(labels,preds,average=scoring_method)
-    prec=sklearn.metrics.precision_score(labels,preds,average=scoring_method)
-    recall=sklearn.metrics.recall_score(labels,preds,average=scoring_method)
-    acc=sklearn.metrics.accuracy_score(labels,preds)
+    f1=f1_score(labels,preds,average=scoring_method)
+    prec=precision_score(labels,preds,average=scoring_method)
+    recall=recall_score(labels,preds,average=scoring_method)
+    acc=accuracy_score(labels,preds)
     # End of TODO
     ########################################################
 
@@ -50,23 +50,21 @@ def pairwise_accuracy(guids, preds, labels):
     # pair is identical. You can simply pair the these
     # predictions and labels w.r.t the `guid`. 
     seen_guids=[]
-    pair_correct=0
-    pair_incorrect=0
+    correct=0
+    incorrect=0
     for i in range (len(guids)):
-        if guids[i] in seen_guids:
-            continue
-        else:
-            for j in range(i+1,len(guids)):
-                if guids[j]==guids[i]:
-                    if(preds[j]==labels[j]):
-                        if(preds[i]==labels[i]):
-                            pair_correct+=1
-                        else:
-                            pair_incorrect+=1
+        
+        for j in range(i+1,len(guids)):
+            if guids[j]==guids[i]:
+                if(preds[j]==labels[j]):
+                    if(preds[i]==labels[i]):
+                        correct+=1
                     else:
-                        pair_incorrect+=1
-                    break
-    acc=pair_correct/pair_incorrect
+                        incorrect+=1
+                else:
+                    incorrect+=1
+                break
+    acc=correct/(correct+incorrect)
     # End of TODO
     ########################################################
      
