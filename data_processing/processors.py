@@ -196,7 +196,34 @@ class Com2SenseDataset(Dataset):
         # the outputs of tokenizer for certain types of
         # models (e.g. RoBERTa), please take special care
         # of it with an if-else statement.
-        raise NotImplementedError("Please finish the TODO!")
+        
+        example = self.examples[idx]
+        guid = example.guid
+        text = example.text
+        label = example.label
+        domain = example.domain
+        scenario = example.scenario
+        numeracy = example.numeracy
+
+        batch_encoding = self.tokenizer(
+            text,
+            add_special_tokens=True,
+            max_length=self.max_seq_length,
+            padding="max_length",
+            truncation=True
+        )
+
+        # token_type_ids MAY NOT EXIST
+        input_ids = torch.Tensor(batch_encoding["input_ids"]).long()    # encoded sequence of the original string with included special tokens
+        attention_mask = torch.Tensor(batch_encoding["attention_mask"]).long()  # attention mask tells attention layers to ignore padding tokens
+        # token type id align to differentiate which token belongs to which text/sentence/input
+        # this explains why test data may not have this since the whole point could be to tell if our model can differentiate between them
+        # also certain models may not have them
+        if "token_type_ids" not in batch_encoding:
+            token_type_ids = torch.zeros_like(input_ids)
+        else:
+            token_type_ids = torch.Tensor(batch_encoding["token_type_ids"]).long()
+
         # End of TODO.
         ##################################################
 
