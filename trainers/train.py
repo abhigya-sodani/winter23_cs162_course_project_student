@@ -207,8 +207,7 @@ def train(args, train_dataset, model, tokenizer):
                 inputs["token_type_ids"] = None
 
             if args.training_phase == "pretrain":
-                masked_inputs, lm_labels = mask_tokens(
-                    inputs["input_ids"], tokenizer, args)
+                masked_inputs, lm_labels = mask_tokens(inputs["input_ids"], tokenizer, args)
                 inputs["input_ids"] = masked_inputs
                 inputs["labels"] = lm_labels
 
@@ -218,20 +217,25 @@ def train(args, train_dataset, model, tokenizer):
             # (2) Compute the loss (store as `loss` variable)
             # Hint: See the HuggingFace transformers doc to properly get
             # the loss from the model outputs.
-            raise NotImplementedError("Please finish the TODO!")
-
+            #raise NotImplementedError("Please finish the TODO!")
+            loss=torch.nn.BCELoss()
+            if args.training_phase == "pretrain":
+                output=model(masked_inputs, labels=lm_labels)
+            else:
+                output=model(inputs["input_ids"]*inputs["attention_mask"],labels=inputs["labels"])
+            loss=output[0]
             if args.n_gpu > 1:
                 # Applies mean() to average on multi-gpu parallel training.
                 loss = loss.mean()
-
+            
             # Handles the `gradient_accumulation_steps`, i.e., every such
             # steps we update the model, so the loss needs to be devided.
             if args.gradient_accumulation_steps > 1:
                 loss = loss / args.gradient_accumulation_steps
 
             # (3) Implement the backward for loss propagation
-            raise NotImplementedError("Please finish the TODO!")
-
+            # raise NotImplementedError("Please finish the TODO!")
+            loss.backward()
             # End of TODO.
             ##################################################
 
@@ -377,9 +381,10 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
             ##################################################
             # TODO: Evaluation Loop
             # (1) Run forward and get the model outputs
-            raise NotImplementedError("Please finish the TODO!")
-
+            #raise NotImplementedError("Please finish the TODO!")
+            
             if has_label or args.training_phase == "pretrain":
+                outputs=model(**inputs,labels=labels)
                 # (2) If label present or pretraining, compute the loss and prediction logits
                 # Label the loss as `eval_loss` and logits as `logits`
                 # Hint: See the HuggingFace transformers doc to properly get the loss
@@ -387,15 +392,19 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
                 # indexing properly the outputs as tuples.
                 # Make sure to perform a `.mean()` on the eval loss and add it
                 # to the `eval_loss` variable.
-                raise NotImplementedError("Please finish the TODO!")
+                eval_loss+=outputs[0].mean()
+                logits=outputs[1]
+                #raise NotImplementedError("Please finish the TODO!")
             else:
+                outputs=model(**inputs)
+                logits=outputs[0]
                 # (3) If labels not present, only compute the prediction logits
                 # Label the logits as `logits`
-                raise NotImplementedError("Please finish the TODO!")
-
+                #raise NotImplementedError("Please finish the TODO!")
+            logits=torch.nn.Softmax(logits)
             # (4) Convert logits into probability distribution and relabel as `logits`
             # Hint: Refer to Softmax function
-            raise NotImplementedError("Please finish the TODO!")
+            #raise NotImplementedError("Please finish the TODO!")
 
             # End of TODO.
             ##################################################
