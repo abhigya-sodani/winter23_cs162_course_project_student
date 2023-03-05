@@ -41,6 +41,7 @@ from transformers import (
     AutoTokenizer,
     get_linear_schedule_with_warmup,
     BertConfig, EncoderDecoderConfig, EncoderDecoderModel, BertForMaskedLM,
+    BertModel, BertTokenizer
 )
 
 from .args import get_args
@@ -620,10 +621,12 @@ def main():
     # for essential args.
 
     # (1) Load config
-    raise NotImplementedError("Please finish the TODO!")
+    configuration = BertConfig()
+    #raise NotImplementedError("Please finish the TODO!")
 
     # (2) Load tokenizer
-    raise NotImplementedError("Please finish the TODO!")
+    tokenizer = BertTokenizer()
+    #raise NotImplementedError("Please finish the TODO!")
 
     if args.training_phase == "pretrain":
         # (3) Load MLM model if pretraining (Optional)
@@ -631,7 +634,8 @@ def main():
         raise NotImplementedError("Please finish the TODO!")
     else:
         # (4) Load sequence classification model otherwise
-        raise NotImplementedError("Please finish the TODO!")
+        model = BertModel(configuration)
+        #raise NotImplementedError("Please finish the TODO!")
 
     # End of TODO.
     ##################################################
