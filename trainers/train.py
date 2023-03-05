@@ -621,11 +621,11 @@ def main():
     # for essential args.
 
     # (1) Load config
-    configuration = BertConfig()
+    config = AutoConfig.from_pretrained('bert-base-uncased')
     #raise NotImplementedError("Please finish the TODO!")
 
     # (2) Load tokenizer
-    tokenizer = BertTokenizer()
+    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
     #raise NotImplementedError("Please finish the TODO!")
 
     if args.training_phase == "pretrain":
@@ -634,7 +634,7 @@ def main():
         raise NotImplementedError("Please finish the TODO!")
     else:
         # (4) Load sequence classification model otherwise
-        model = BertModel(configuration)
+        model = AutoModel.from_config(config)
         #raise NotImplementedError("Please finish the TODO!")
 
     # End of TODO.
