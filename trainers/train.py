@@ -399,7 +399,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
                 #raise NotImplementedError("Please finish the TODO!")
             else:
                 outputs=model(**inputs)
-                logits=outputs[0]
+                logits=outputs[1]
                 # (3) If labels not present, only compute the prediction logits
                 # Label the logits as `logits`
                 #raise NotImplementedError("Please finish the TODO!")
