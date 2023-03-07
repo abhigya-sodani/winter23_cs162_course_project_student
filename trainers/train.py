@@ -635,7 +635,7 @@ def main():
         raise NotImplementedError("Please finish the TODO!")
     else:
         # (4) Load sequence classification model otherwise
-        model = AutoModel.from_config(config)
+        model = AutoModelForSequenceClassification.from_config(config)
         #raise NotImplementedError("Please finish the TODO!")
 
     # End of TODO.
