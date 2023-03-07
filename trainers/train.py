@@ -222,7 +222,7 @@ def train(args, train_dataset, model, tokenizer):
             loss=torch.nn.BCELoss()
             
             # if args.training_phase == "pretrain":
-            output=model(inputs)
+            output=model(**inputs)
             # else:
             #     output=model(inputs["input_ids"]*inputs["attention_mask"],labels=inputs["labels"])
             loss=output[0]
