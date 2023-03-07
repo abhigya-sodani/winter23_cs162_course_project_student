@@ -220,9 +220,9 @@ def train(args, train_dataset, model, tokenizer):
             # the loss from the model outputs.
             #raise NotImplementedError("Please finish the TODO!")
             loss=torch.nn.BCELoss()
-            output=model(masked_inputs, labels=lm_labels)
+            
             # if args.training_phase == "pretrain":
-                
+            output=model(inputs)
             # else:
             #     output=model(inputs["input_ids"]*inputs["attention_mask"],labels=inputs["labels"])
             loss=output[0]
@@ -652,7 +652,7 @@ def main():
     logger.info("!!! Number of Params: {} M".format(count_parameters(model)/float(1000000)))
 
     # Training.
-    if args.do_train:
+    if a    rgs.do_train:
         train_dataset = load_and_cache_examples(args, args.task_name,
                                                 tokenizer, data_split="train",
                                                 evaluate=False)
