@@ -386,7 +386,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
             #raise NotImplementedError("Please finish the TODO!")
             
             if has_label or args.training_phase == "pretrain":
-                outputs=model(**inputs,labels=labels)
+                outputs=model(**inputs)
                 # (2) If label present or pretraining, compute the loss and prediction logits
                 # Label the loss as `eval_loss` and logits as `logits`
                 # Hint: See the HuggingFace transformers doc to properly get the loss
