@@ -652,7 +652,7 @@ def main():
     logger.info("!!! Number of Params: {} M".format(count_parameters(model)/float(1000000)))
 
     # Training.
-    if a    rgs.do_train:
+    if args.do_train:
         train_dataset = load_and_cache_examples(args, args.task_name,
                                                 tokenizer, data_split="train",
                                                 evaluate=False)
