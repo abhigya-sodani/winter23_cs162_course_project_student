@@ -404,6 +404,8 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
                 # Label the logits as `logits`
                 #raise NotImplementedError("Please finish the TODO!")
             logits=torch.nn.Softmax(logits)
+            print(logits)
+            print(type(logits))
             # (4) Convert logits into probability distribution and relabel as `logits`
             # Hint: Refer to Softmax function
             #raise NotImplementedError("Please finish the TODO!")
