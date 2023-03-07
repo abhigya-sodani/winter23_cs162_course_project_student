@@ -220,10 +220,11 @@ def train(args, train_dataset, model, tokenizer):
             # the loss from the model outputs.
             #raise NotImplementedError("Please finish the TODO!")
             loss=torch.nn.BCELoss()
-            if args.training_phase == "pretrain":
-                output=model(masked_inputs, labels=lm_labels)
-            else:
-                output=model(inputs["input_ids"]*inputs["attention_mask"],labels=inputs["labels"])
+            output=model(masked_inputs, labels=lm_labels)
+            # if args.training_phase == "pretrain":
+                
+            # else:
+            #     output=model(inputs["input_ids"]*inputs["attention_mask"],labels=inputs["labels"])
             loss=output[0]
             if args.n_gpu > 1:
                 # Applies mean() to average on multi-gpu parallel training.

@@ -3,7 +3,7 @@ DATA_DIR="datasets/dummies"
 MODEL_TYPE="bert-base-cased"
 
 
-python3 -m trainers.train \
+python -m trainers.train \
   --model_name_or_path ${MODEL_TYPE} \
   --do_not_load_optimizer \
   --do_train \
