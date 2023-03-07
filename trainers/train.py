@@ -624,11 +624,11 @@ def main():
     # for essential args.
 
     # (1) Load config
-    config = AutoConfig.from_pretrained('bert-base-uncased')
+    config = AutoConfig.from_pretrained(args.model_name_or_path)
     #raise NotImplementedError("Please finish the TODO!")
 
     # (2) Load tokenizer
-    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
     #raise NotImplementedError("Please finish the TODO!")
 
     if args.training_phase == "pretrain":
