@@ -399,12 +399,14 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
                 #raise NotImplementedError("Please finish the TODO!")
             else:
                 outputs=model(**inputs)
-                logits=outputs[1]
+                logits=outputs[0]
                 # (3) If labels not present, only compute the prediction logits
                 # Label the logits as `logits`
                 #raise NotImplementedError("Please finish the TODO!")
-            logits=torch.nn.Softmax(logits).dim
-            print(logits)
+            #logits=torch.nn.Softmax(logits)#.dim
+            s = torch.nn.Softmax()
+            logits = s(logits)
+            print("LOGITS", logits)
             
             # (4) Convert logits into probability distribution and relabel as `logits`
             # Hint: Refer to Softmax function
