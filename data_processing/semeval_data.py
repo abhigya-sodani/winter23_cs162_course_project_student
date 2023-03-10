@@ -58,7 +58,37 @@ class SemEvalDataProcessor(DataProcessor):
         # 5. For the guid, simply use the row number (0-
         # indexed) for each data instance.
         # Use the same guid for statements from the same complementary pair.
-        raise NotImplementedError("Please finish the TODO!")
+        #raise NotImplementedError("Please finish the TODO!")
+        with open(data_dir + '/' + split + '.csv', 'r') as file:
+            reader = csv.DictReader(file)
+        
+            for i, row in enumerate(reader):
+                example_1 = SemEvalSingleSentenceExample(
+                    guid=i,
+                    text=row["Correct Statement"],
+                    label="",
+                    right_reason1=row["Right Reason1"],
+                    right_reason2=row["Right Reason2"],
+                    right_reason3=row["Right Reason3"],
+                    confusing_reason1=row["Confusing Reason1"],
+                    confusing_reason2=row["Confusing Reason2"],
+                )
+                #if "label_1" in row:
+                #    example_1.label = int(row["label_1"] == 'True')
+                example_2 = SemEvalSingleSentenceExample(
+                    guid=i,
+                    text=row["Incorrect Statement"],
+                    label="",
+                    right_reason1=row["Right Reason1"],
+                    right_reason2=row["Right Reason2"],
+                    right_reason3=row["Right Reason3"],
+                    confusing_reason1=row["Confusing Reason1"],
+                    confusing_reason2=row["Confusing Reason2"],
+                )
+                #if "label_2" in row:
+                #    example_2.label = int(row["label_2"] == 'True')
+                examples.append(example_1)
+                examples.append(example_2)
         # End of TODO.
         ##################################################
 
