@@ -66,7 +66,7 @@ class SemEvalDataProcessor(DataProcessor):
                 example_1 = SemEvalSingleSentenceExample(
                     guid=i,
                     text=row["Correct Statement"],
-                    label="",
+                    label=0,
                     right_reason1=row["Right Reason1"],
                     right_reason2=row["Right Reason2"],
                     right_reason3=row["Right Reason3"],
@@ -78,7 +78,7 @@ class SemEvalDataProcessor(DataProcessor):
                 example_2 = SemEvalSingleSentenceExample(
                     guid=i,
                     text=row["Incorrect Statement"],
-                    label="",
+                    label=0,
                     right_reason1=row["Right Reason1"],
                     right_reason2=row["Right Reason2"],
                     right_reason3=row["Right Reason3"],

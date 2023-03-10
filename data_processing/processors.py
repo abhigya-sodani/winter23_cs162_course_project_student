@@ -158,6 +158,8 @@ class SemEvalDataset(Dataset):
         else:
             token_type_ids = torch.Tensor(batch_encoding["token_type_ids"]).long()
 
+        labels = torch.Tensor([label]).long()[0]
+
         # End of TODO.
         ##################################################
 
