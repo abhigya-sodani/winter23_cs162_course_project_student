@@ -142,6 +142,7 @@ class SemEvalDataset(Dataset):
         example = self.examples[idx]
         guid = example.guid
         text = example.text
+        label = example.label
 
         batch_encoding = self.tokenizer(
             text,
