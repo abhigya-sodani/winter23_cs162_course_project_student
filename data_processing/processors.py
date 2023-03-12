@@ -142,7 +142,6 @@ class SemEvalDataset(Dataset):
         example = self.examples[idx]
         guid = example.guid
         text = example.text
-        label = example.label
 
         batch_encoding = self.tokenizer(
             text,
@@ -158,8 +157,6 @@ class SemEvalDataset(Dataset):
             token_type_ids = torch.zeros_like(input_ids)
         else:
             token_type_ids = torch.Tensor(batch_encoding["token_type_ids"]).long()
-
-        labels = torch.Tensor([label]).long()[0]
 
         # End of TODO.
         ##################################################
