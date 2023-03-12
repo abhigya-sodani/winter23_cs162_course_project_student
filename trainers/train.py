@@ -399,12 +399,13 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
                 #raise NotImplementedError("Please finish the TODO!")
             else:
                 outputs=model(**inputs)
-                logits=outputs[1]
+                logits=outputs[0]
                 # (3) If labels not present, only compute the prediction logits
                 # Label the logits as `logits`
                 #raise NotImplementedError("Please finish the TODO!")
-            logits=torch.nn.Softmax(logits).dim
-            print(logits)
+            #logits=torch.nn.Softmax(logits)#.dim
+            logits = torch.nn.functional.softmax(logits, dim=1)
+            #print("LOGITS", logits)
             
             # (4) Convert logits into probability distribution and relabel as `logits`
             # Hint: Refer to Softmax function
@@ -624,11 +625,11 @@ def main():
     # for essential args.
 
     # (1) Load config
-    config = AutoConfig.from_pretrained('bert-base-uncased')
+    config = AutoConfig.from_pretrained(args.model_name_or_path)
     #raise NotImplementedError("Please finish the TODO!")
 
     # (2) Load tokenizer
-    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
     #raise NotImplementedError("Please finish the TODO!")
 
     if args.training_phase == "pretrain":
