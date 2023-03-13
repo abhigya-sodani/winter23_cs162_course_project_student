@@ -243,6 +243,7 @@ class Com2SenseDataset(Dataset):
         else:
             token_type_ids = torch.Tensor(batch_encoding["token_type_ids"]).long()
 
+        labels = torch.Tensor().long()
         # End of TODO.
         ##################################################
 

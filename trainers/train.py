@@ -225,7 +225,8 @@ def train(args, train_dataset, model, tokenizer):
             output=model(**inputs)
             # else:
             #     output=model(inputs["input_ids"]*inputs["attention_mask"],labels=inputs["labels"])
-            loss=output[0]
+            loss=output.loss
+
             if args.n_gpu > 1:
                 # Applies mean() to average on multi-gpu parallel training.
                 loss = loss.mean()
@@ -394,20 +395,20 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
                 # indexing properly the outputs as tuples.
                 # Make sure to perform a `.mean()` on the eval loss and add it
                 # to the `eval_loss` variable.
-                eval_loss+=outputs[0].mean()
-                logits=outputs[1]
+                eval_loss+=outputs.loss.mean()
+                logits=outputs.logits
                 #raise NotImplementedError("Please finish the TODO!")
             else:
                 outputs=model(**inputs)
-                logits=outputs[0]
+                logits=outputs.logits
                 # (3) If labels not present, only compute the prediction logits
                 # Label the logits as `logits`
                 #raise NotImplementedError("Please finish the TODO!")
             #logits=torch.nn.Softmax(logits)#.dim
             #s = torch.nn.Softmax()
             #logits = s(logits)
-            logits = torch.nn.functional.softmax(logits)
-            print("LOGITS", logits)
+            logits = torch.nn.functional.softmax(logits, dim=1)
+            #print("LOGITS", logits)
             
             # (4) Convert logits into probability distribution and relabel as `logits`
             # Hint: Refer to Softmax function
