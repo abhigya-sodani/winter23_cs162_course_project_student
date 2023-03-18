@@ -3,8 +3,7 @@ DATA_DIR="datasets/com2sense"
 MODEL_TYPE="roberta-base"
 
 
-python3 -m trainers.train \
-  --model_name_or_path ${MODEL_TYPE} \
+python3 -m trainers.eval.py \
   --do_not_load_optimizer \
   --do_eval \
   --evaluate_during_training \
