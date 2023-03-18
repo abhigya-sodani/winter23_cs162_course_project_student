@@ -295,7 +295,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
     return results
 
 # Loads models onto the device (gpu or cpu).
-model.to(args.device)
+model.to("gpu")
 print(model)
 args.model_type = config.model_type
 checkpoint = args.model_name_or_path
