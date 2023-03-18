@@ -6,14 +6,13 @@ MODEL_TYPE="roberta-base"
 python3 -m trainers.train \
   --model_name_or_path ${MODEL_TYPE} \
   --do_not_load_optimizer \
-  --do_eval \
   --do_train \
+  --do_eval \
   --evaluate_during_training \
   --gradient_accumulation_steps 4 \
   --per_gpu_train_batch_size 16 \
   --per_gpu_eval_batch_size 796 \
   --learning_rate 1e-5 \
-  --model_name_or_path outputs/com2sense/ckpts/ckpts/checkpoint-9000
   --num_train_epochs 1 \
   --max_seq_length 128 \
   --output_dir "${TASK_NAME}/ckpts" \
