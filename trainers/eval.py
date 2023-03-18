@@ -41,6 +41,7 @@ except ImportError:
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 
 # Loggers.
+args = get_args()
 logger = logging.getLogger(__name__)
 
 ##################################################
