@@ -75,7 +75,7 @@ def train(args, train_dataset, model, tokenizer):
     if args.local_rank in [-1, 0]:
         output_str = args.output_dir.split("/")[-1]
         comment_str = "_{}_{}".format(output_str, args.task_name)
-        tb_writer = SummaryWriter(comment=comment_str)
+        #tb_writer = SummaryWriter(comment=comment_str)
 
     args.train_batch_size = args.per_gpu_train_batch_size * max(1, args.n_gpu)
     train_sampler = RandomSampler(train_dataset) if args.local_rank == -1 \
@@ -262,15 +262,15 @@ def train(args, train_dataset, model, tokenizer):
                     ):
                         results = evaluate(args, model, tokenizer,
                                            data_split=args.eval_split)
-                        for key, value in results.items():
-                            tb_writer.add_scalar(
-                                "eval_on_{}_{}".format(args.eval_split, key),
-                                value, global_step)
-                    tb_writer.add_scalar("lr", scheduler.get_lr()[0],
-                                         global_step)
-                    tb_writer.add_scalar("loss",
-                        (tr_loss - logging_loss) / args.logging_steps,
-                        global_step)
+                    #     for key, value in results.items():
+                    #         tb_writer.add_scalar(
+                    #             "eval_on_{}_{}".format(args.eval_split, key),
+                    #             value, global_step)
+                    # tb_writer.add_scalar("lr", scheduler.get_lr()[0],
+                    #                      global_step)
+                    # tb_writer.add_scalar("loss",
+                    #     (tr_loss - logging_loss) / args.logging_steps,
+                    #     global_step)
                     logging_loss = tr_loss
 
                 if (args.local_rank in [-1, 0] and args.save_steps > 0
@@ -310,8 +310,8 @@ def train(args, train_dataset, model, tokenizer):
             train_iterator.close()
             break
 
-    if args.local_rank in [-1, 0]:
-        tb_writer.close()
+    # if args.local_rank in [-1, 0]:
+    #     tb_writer.close()
 
     return global_step, tr_loss / global_step
 
