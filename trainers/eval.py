@@ -112,7 +112,7 @@ def load_and_cache_examples(args, task, tokenizer, evaluate=False,
 
 
 def evaluate(args, model, tokenizer, prefix="", data_split="test"):
-
+    print("now here")
     # Main evaluation loop.
     results = {}
     eval_dataset = load_and_cache_examples(args, args.task_name,
@@ -302,6 +302,7 @@ checkpoint = args.model_name_or_path
 ckpt_path = os.path.join(checkpoint, "pytorch_model.bin")
 model.load_state_dict(torch.load(ckpt_path))
 model.to(args.device)
+print("here")
 result = evaluate(args, model, tokenizer, prefix=prefix, data_split=args.eval_split)
 result = dict((k + "_{}".format(global_step), v)
                 for k, v in result.items())
