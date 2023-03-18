@@ -3,8 +3,9 @@ DATA_DIR="datasets/com2sense"
 MODEL_TYPE="roberta-base"
 
 
-python3 trainers.eval.py \
+python3 -m trainers.eval.py \
   --do_not_load_optimizer \
+  --do_train \
   --do_eval \
   --evaluate_during_training \
   --gradient_accumulation_steps 4 \
