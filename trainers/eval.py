@@ -295,21 +295,21 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
     return results
 
 # Loads models onto the device (gpu or cpu).
-if args.local_rank == -1 or args.no_cuda:
-    device = torch.device("cuda" if torch.cuda.is_available()
-                            and not args.no_cuda else "cpu")
-    args.n_gpu = 0 if args.no_cuda else torch.cuda.device_count()
-else:
-    torch.cuda.set_device(args.local_rank)
-    device = torch.device("cuda", args.local_rank)
-    torch.distributed.init_process_group(backend="nccl")
-    args.n_gpu = 1
-args.device = device
+# if args.local_rank == -1 or args.no_cuda:
+#     device = torch.device("cuda" if torch.cuda.is_available()
+#                             and not args.no_cuda else "cpu")
+#     args.n_gpu = 0 if args.no_cuda else torch.cuda.device_count()
+# else:
+#     torch.cuda.set_device(args.local_rank)
+#     device = torch.device("cuda", args.local_rank)
+#     torch.distributed.init_process_group(backend="nccl")
+#     args.n_gpu = 1
+args.device = torch.device("cpu")
 print(model)
 args.model_type = config.model_type
 checkpoint = args.model_name_or_path
 ckpt_path = os.path.join(checkpoint, "pytorch_model.bin")
-model.load_state_dict(torch.load(ckpt_path))
+model.load_state_dict(torch.load(ckpt_path, map_location=torch.device('cpu')))
 model.to(args.device)
 print("here")
 result = evaluate(args, model, tokenizer, prefix=prefix, data_split=args.eval_split)
