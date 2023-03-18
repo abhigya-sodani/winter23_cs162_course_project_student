@@ -61,10 +61,10 @@ tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
 if args.training_phase == "pretrain":
 # (3) Load MLM model if pretraining (Optional)
 # Complete only if doing MLM pretraining for improving performance
-raise NotImplementedError("Please finish the TODO!")
+    raise NotImplementedError("Please finish the TODO!")
 else:
 # (4) Load sequence classification model otherwise
-model = AutoModelForSequenceClassification.from_config(config)
+    model = AutoModelForSequenceClassification.from_config(config)
 #raise NotImplementedError("Please finish the TODO!")
 
 # End of TODO.
