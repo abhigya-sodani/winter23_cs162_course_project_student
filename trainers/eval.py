@@ -322,7 +322,6 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 #     torch.distributed.init_process_group(backend="nccl")
 #     args.n_gpu = 1
 args.device = torch.device("cuda")
-print(model)
 args.model_type = config.model_type
 checkpoint = args.model_name_or_path
 ckpt_path = os.path.join(checkpoint, "pytorch_model.bin")
