@@ -44,6 +44,15 @@ from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_sc
 args = get_args()
 logger = logging.getLogger(__name__)
 
+if args.local_rank == -1 or args.no_cuda:
+        device = torch.device("cuda" if torch.cuda.is_available()
+                              and not args.no_cuda else "cpu")
+        args.n_gpu = 0 if args.no_cuda else torch.cuda.device_count()
+else:
+    torch.cuda.set_device(args.local_rank)
+    device = torch.device("cuda", args.local_rank)
+    torch.distributed.init_process_group(backend="nccl")
+    args.n_gpu = 1
 def set_seed(args):
     random.seed(args.seed)
     np.random.seed(args.seed)
