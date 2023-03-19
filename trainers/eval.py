@@ -304,12 +304,12 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 #     device = torch.device("cuda", args.local_rank)
 #     torch.distributed.init_process_group(backend="nccl")
 #     args.n_gpu = 1
-args.device = torch.device("cpu")
+args.device = torch.device("cuda")
 print(model)
 args.model_type = config.model_type
 checkpoint = args.model_name_or_path
 ckpt_path = os.path.join(checkpoint, "pytorch_model.bin")
-model.load_state_dict(torch.load(ckpt_path, map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(ckpt_path))
 model.to(args.device)
 print("here")
 result = evaluate(args, model, tokenizer, prefix=prefix, data_split=args.eval_split)
