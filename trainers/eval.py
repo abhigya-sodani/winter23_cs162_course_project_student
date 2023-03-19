@@ -44,6 +44,14 @@ from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_sc
 args = get_args()
 logger = logging.getLogger(__name__)
 
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if args.n_gpu > 0:
+        torch.cuda.manual_seed_all(args.seed)
+
+set_seed(args)
 ##################################################
 # TODO: Model Selection
 # Please fill in the below to obtain the
@@ -304,7 +312,7 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 #     device = torch.device("cuda", args.local_rank)
 #     torch.distributed.init_process_group(backend="nccl")
 #     args.n_gpu = 1
-args.device = torch.device("cuda")
+args.device = torch.device("    ")
 print(model)
 args.model_type = config.model_type
 checkpoint = args.model_name_or_path
