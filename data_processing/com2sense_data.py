@@ -67,7 +67,7 @@ class Com2SenseDataProcessor(DataProcessor):
         
         if split=="dev":
             for i, row in enumerate(data):
-                if row["domain"] == "time":
+                if row["domain"] == "social":
                     example_1 = Coms2SenseSingleSentenceExample(
                         guid=i,
                         text=row["sent_1"],
