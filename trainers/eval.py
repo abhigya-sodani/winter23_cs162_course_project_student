@@ -324,10 +324,11 @@ def evaluate(args, model, tokenizer, prefix="", data_split="test"):
 args.device = torch.device("cuda")
 args.model_type = config.model_type
 checkpoint = args.model_name_or_path
+print("here")
 ckpt_path = os.path.join(checkpoint, "pytorch_model.bin")
 model.load_state_dict(torch.load(ckpt_path))
 model.to(args.device)
-print("here")
+
 result = evaluate(args, model, tokenizer, prefix=prefix, data_split=args.eval_split)
 result = dict((k + "_{}".format(global_step), v)
                 for k, v in result.items())
