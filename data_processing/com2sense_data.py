@@ -65,27 +65,54 @@ class Com2SenseDataProcessor(DataProcessor):
         with open(data_dir + '/' + split + '.json', 'r') as file:
             data = json.load(file)
         
-        for i, row in enumerate(data):
-            example_1 = Coms2SenseSingleSentenceExample(
-                guid=i,
-                text=row["sent_1"],
-                domain=row["domain"],
-                scenario=row["scenario"],
-                numeracy=row["numeracy"] == 'True',
-            )
-            if "label_1" in row:
-                example_1.label = int(row["label_1"] == 'True')
-            example_2 = Coms2SenseSingleSentenceExample(
-                guid=i,
-                text=row["sent_2"],
-                domain=row["domain"],
-                scenario=row["scenario"],
-                numeracy=row["numeracy"] == 'True',
-            )
-            if "label_2" in row:
-                example_2.label = int(row["label_2"] == 'True')
-            examples.append(example_1)
-            examples.append(example_2)
+        if split=="dev":
+            for i, row in enumerate(data):
+                if row["senario"] == "comparison":
+                    example_1 = Coms2SenseSingleSentenceExample(
+                        guid=i,
+                        text=row["sent_1"],
+                        domain=row["domain"],
+                        scenario=row["scenario"],
+                        numeracy=row["numeracy"] == 'True',
+                    )
+                    if "label_1" in row:
+                        example_1.label = int(row["label_1"] == 'True')
+                    example_2 = Coms2SenseSingleSentenceExample(
+                        guid=i,
+                        text=row["sent_2"],
+                        domain=row["domain"],
+                        scenario=row["scenario"],
+                        numeracy=row["numeracy"] == 'True',
+                    )
+                    if "label_2" in row:
+                        example_2.label = int(row["label_2"] == 'True')
+                    examples.append(example_1)
+                    examples.append(example_2)
+                else:
+                    pass
+
+        else:
+            for i, row in enumerate(data):
+                example_1 = Coms2SenseSingleSentenceExample(
+                    guid=i,
+                    text=row["sent_1"],
+                    domain=row["domain"],
+                    scenario=row["scenario"],
+                    numeracy=row["numeracy"] == 'True',
+                )
+                if "label_1" in row:
+                    example_1.label = int(row["label_1"] == 'True')
+                example_2 = Coms2SenseSingleSentenceExample(
+                    guid=i,
+                    text=row["sent_2"],
+                    domain=row["domain"],
+                    scenario=row["scenario"],
+                    numeracy=row["numeracy"] == 'True',
+                )
+                if "label_2" in row:
+                    example_2.label = int(row["label_2"] == 'True')
+                examples.append(example_1)
+                examples.append(example_2)
         # End of TODO.
         ##################################################
 
