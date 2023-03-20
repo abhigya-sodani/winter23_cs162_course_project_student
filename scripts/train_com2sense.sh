@@ -13,7 +13,7 @@ python3 -m trainers.train \
   --per_gpu_train_batch_size 16 \
   --per_gpu_eval_batch_size 796 \
   --learning_rate 1e-5 \
-  --num_train_epochs 0 \
+  --num_train_epochs 1 \
   --max_seq_length 128 \
   --output_dir "${TASK_NAME}/ckpts" \
   --task_name "${TASK_NAME}" \
